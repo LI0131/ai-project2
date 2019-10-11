@@ -9,7 +9,7 @@ from config import NUM_OUTPUT_NODES
 class OutputLayer(Layer):
 
     def __init__(self):
-        self.output_nodes = self._build_output_nodes()
+        self.nodes = self._build_output_nodes()
         self._weight_matrix = [random.random()] * NUM_OUTPUT_NODES
 
     def _build_output_nodes(self):
@@ -28,10 +28,10 @@ class OutputLayer(Layer):
         self.build_output_nodes()
 
     def get_classification(self):
-        return max(self.output_nodes.items(), key=operator.itemgetter(1))[0]
+        return max(self.nodes.items(), key=operator.itemgetter(1))[0]
 
     def __str__(self):
-        return ', '.join([f'{num}: {str(node)}' for (num,node) in self.output_nodes.items()])
+        return ', '.join([f'{num}: {str(node)}' for (num, node) in self.nodes.items()])
 
 
 def _test():

@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 class Layer(object, metaclass=ABCMeta):
 
+    @abstractmethod
     def __init__(self):
         self.nodes = []
 

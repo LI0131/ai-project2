@@ -6,7 +6,7 @@ from node import Node
 class InputLayer(Layer):
 
     def __init__(self, image):
-        self.input_nodes = self._distribute_image(image)
+        self.nodes = self._distribute_image(image)
 
     def _distribute_image(self, matrix):
         ''' This will distribute the image over a fixed number of nodes
@@ -21,7 +21,7 @@ class InputLayer(Layer):
         sys.exit('Cannot propagate backward from Input Layer')
 
     def __str__(self):
-        return ', '.join([str(node) for node in self.input_nodes])
+        return ', '.join([str(node) for node in self.nodes])
 
 
 def _test():
