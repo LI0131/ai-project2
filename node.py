@@ -1,9 +1,7 @@
 class Node:
 
-    def __init__():
-        self.value = self._compute_node_value()
-        self.out_weights = []
-        self.in_weights = []
+    def __init__(self, value=None):
+        self.value = value if value else 0
 
-    def _compute_node_value(self):
-        pass
+    def __str__(self):
+        return str(self.value)

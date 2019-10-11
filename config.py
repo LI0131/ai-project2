@@ -1,7 +1,6 @@
 import os
 
 
-NUM_INPUT_NODES = os.environ.get('NUM_INPUT_NODES', 5)
 NUM_HIDDEN_NODES = os.environ.get('NUM_HIDDEN_NODES', 1000)
 TRAINING_PERCENTAGE = os.environ.get('TRAINING_PERCENTAGE', .6)
 TESTING_PERCENTAGE = os.environ.get('TESTING_PERCENTAGE', .2)
