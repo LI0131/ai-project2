@@ -17,11 +17,8 @@ class InputLayer(Layer):
             input_array.extend(row)
         return [Node(value) for value in input_array]
 
-    def propagate_backward(self):
-        sys.exit('Cannot propagate backward from Input Layer')
-
-    def __str__(self):
-        return ', '.join([str(node) for node in self.nodes])
+    def reset_image(self, new_image):
+        self.nodes = self._distribute_image(new_image)
 
 
 def _test():
