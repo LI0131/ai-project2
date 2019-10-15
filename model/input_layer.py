@@ -1,12 +1,12 @@
 import sys
-from layer import Layer
-from node import Node
+from model.layer import Layer
+from model.node import Node
 
 
 class InputLayer(Layer):
 
-    def __init__(self, image):
-        self.nodes = self._distribute_image(image)
+    def __init__(self, image=None):
+        self.nodes = self._distribute_image(image) if image else []
 
     def _distribute_image(self, matrix):
         ''' This will distribute the image over a fixed number of nodes
@@ -19,6 +19,9 @@ class InputLayer(Layer):
 
     def reset_image(self, new_image):
         self.nodes = self._distribute_image(new_image)
+
+    def set_error(self, matrix):
+        print('Back Propagation Complete')
 
 
 def _test():

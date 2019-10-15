@@ -1,7 +1,9 @@
 import os
 
 
-NUM_HIDDEN_NODES = os.environ.get('NUM_HIDDEN_NODES', 1000)
+NUM_HIDDEN_NODES = os.environ.get('NUM_HIDDEN_NODES', 100)
+NUM_EPOCHS = os.environ.get('NUM_EPOCHS', 1000)
+LEARNING_RATE = float(os.environ.get('LEARNING_RATE', 0.001))
 TRAINING_PERCENTAGE = os.environ.get('TRAINING_PERCENTAGE', .6)
 TESTING_PERCENTAGE = os.environ.get('TESTING_PERCENTAGE', .2)
 VALIDATION_PERCENTAGE = os.environ.get('VALIDATION_PERCENTAGE', .2)

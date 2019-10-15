@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
+from model.node import Node
 
 class Layer(object, metaclass=ABCMeta):
 
