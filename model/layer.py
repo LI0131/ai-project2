@@ -1,21 +1,24 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
-from model.node import Node
 
 class Layer(object, metaclass=ABCMeta):
 
     @abstractmethod
     def __init__(self):
         self.nodes = []
+        self.error_matrix = []
+
+    def set_node_values(self, vector):
+        self.nodes.append(vector)
 
     def reset_node_values(self):
-        self.nodes = [Node() for node in self.nodes]
+        self.nodes = []
+
+    def reset_error_matrix(self):
+        self.error_matrix = []
             
     def get_node_array(self):
-        return np.array([node.value for node in self.nodes])
-
-    def __len__(self):
-        return len(self.nodes)
+        return np.array(self.nodes[-1])
 
     def __str__(self):
         return ', '.join([str(node) for node in self.nodes])

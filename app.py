@@ -40,6 +40,6 @@ if __name__ == '__main__':
     logging.info(f'Number of Images in Set: {len(unified_mnist)}')
 
     logging.info(f'Create Model')
-    model = Model(unified_mnist[0])
+    model = Model()
 
     model.train(unified_mnist[:1000])

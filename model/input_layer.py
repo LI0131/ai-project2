@@ -1,12 +1,14 @@
 import sys
+import numpy as np
 from model.layer import Layer
-from model.node import Node
+from config import IMAGE_SIZE
 
 
 class InputLayer(Layer):
 
-    def __init__(self, image=None):
-        self.nodes = self._distribute_image(image) if image else []
+    def __init__(self):
+        self.nodes = []
+        self.error_matrix = []
 
     def _distribute_image(self, matrix):
         ''' This will distribute the image over a fixed number of nodes
@@ -15,13 +17,16 @@ class InputLayer(Layer):
         input_array = []
         for row in matrix:
             input_array.extend(row)
-        return [Node(value) for value in input_array]
+        return input_array
 
     def reset_image(self, new_image):
-        self.nodes = self._distribute_image(new_image)
+        self.nodes.append(self._distribute_image(new_image))
 
     def set_error(self, matrix):
         print('Back Propagation Complete')
+
+    def __len__(self):
+        return IMAGE_SIZE
 
 
 def _test():

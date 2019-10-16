@@ -4,9 +4,9 @@ import random
 import logging
 import numpy as np
 from utils import *
-from model.node import Node
 
 logging.basicConfig(level=logging.INFO)
+
 
 class WeightMatrix:
 
@@ -22,10 +22,7 @@ class WeightMatrix:
 
         node_values = self.inlayer.get_node_array()
         output_values = node_values.dot(self.weights)
-        for node, value in zip(self.outlayer, output_values):
-            node.set_value(
-                sigmoid(value)
-            )
+        self.outlayer.set_node_values(output_values)
 
     def propagate_backward(self):
         ''' Use Sigmoid and MSE to back propagate '''
@@ -36,10 +33,10 @@ class WeightMatrix:
 
         # compute hidden error
         self.inlayer.set_error(
-            self.weights.dot(error_matrix)
+            np.dot(error_matrix, self.weights.T)
         )
 
         # compute new weight matrix
         self.weights = stochastic_gradient_descent(
-            error_matrix, self.inlayer.get_node_array(), self.weights
+            error_matrix, np.array(self.inlayer.nodes), self.weights
         )
