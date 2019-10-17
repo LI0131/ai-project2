@@ -12,6 +12,5 @@ class HiddenLayer(Layer):
     def set_error(self, matrix):
         self.error_matrix = matrix
 
-    # Kind of Hacky but it solves the issue of length within the WeightMatrix w/o Abstract Classes
     def __len__(self):
         return NUM_HIDDEN_NODES

@@ -13,19 +13,22 @@ class WeightMatrix:
     def __init__(self, inlayer=None, outlayer=None):
         self.inlayer = inlayer
         self.outlayer = outlayer
-        self.weights = np.random.random((len(inlayer), len(outlayer)))
+        self.weights = np.random.normal(
+            loc=0, scale=((len(inlayer)+len(outlayer))**(-0.5)), size=(len(inlayer), len(outlayer))
+        )
 
     def propagate_forward(self):
         ''' Matrix Multiplication to forward propagate '''
         if not self.inlayer or not self.outlayer:
             sys.exit('NoneType layer detected')
-
         node_values = self.inlayer.get_node_array()
         output_values = node_values.dot(self.weights)
-        self.outlayer.set_node_values(output_values)
+        self.outlayer.set_node_values(
+            sigmoid(output_values)
+        )
 
     def propagate_backward(self):
-        ''' Use Sigmoid and MSE to back propagate '''
+        ''' Use stochastic gradient descent to backpropagate '''
         if not self.inlayer or not self.outlayer:
             sys.exit('NoneType layer detected')
 
@@ -37,6 +40,9 @@ class WeightMatrix:
         )
 
         # compute new weight matrix
-        self.weights = stochastic_gradient_descent(
-            error_matrix, np.array(self.inlayer.nodes), self.weights
+        w_prime = stochastic_gradient_descent(
+            error_matrix, self.inlayer.get_node_array(), 
+            self.outlayer.get_node_array(), self.weights
         )
+
+        self.weights = w_prime

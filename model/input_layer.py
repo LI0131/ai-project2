@@ -1,7 +1,11 @@
 import sys
+import logging
 import numpy as np
 from model.layer import Layer
 from config import IMAGE_SIZE
+from utils import normalize_pixel_value
+
+logging.basicConfig(level=logging.INFO)
 
 
 class InputLayer(Layer):
@@ -16,14 +20,16 @@ class InputLayer(Layer):
         '''
         input_array = []
         for row in matrix:
-            input_array.extend(row)
-        return input_array
+            input_array.extend(
+                [normalize_pixel_value(val) for val in row]
+            )
+        return np.array(input_array, ndmin=2)
 
     def reset_image(self, new_image):
-        self.nodes.append(self._distribute_image(new_image))
+        self.nodes = self._distribute_image(new_image)
 
     def set_error(self, matrix):
-        print('Back Propagation Complete')
+        pass
 
     def __len__(self):
         return IMAGE_SIZE

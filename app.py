@@ -2,7 +2,6 @@ import os
 import keras
 import logging
 from keras.datasets import mnist
-from config import TRAINING_PERCENTAGE, TESTING_PERCENTAGE, VALIDATION_PERCENTAGE
 from model import Model
 
 logging.basicConfig(level=logging.INFO)
@@ -24,10 +23,6 @@ def create_unified_dataset(set1, label1, set2, label2):
 
 
 if __name__ == '__main__':
-    logging.info(f'Using Training Percentage: {TRAINING_PERCENTAGE}')
-    logging.info(f'Using Testing Percentage: {TESTING_PERCENTAGE}')
-    logging.info(f'Using Validation Percentage: {VALIDATION_PERCENTAGE}')
-
     logging.info('Pulling MNIST from Keras API...')
     (mnist_data_1, mnist_data_2), (mnist_data_3, mnist_data_4) = mnist.load_data()
 
@@ -39,7 +34,9 @@ if __name__ == '__main__':
 
     logging.info(f'Number of Images in Set: {len(unified_mnist)}')
 
-    logging.info(f'Create Model')
+    logging.info(f'Creating Model...')
     model = Model()
 
-    model.train(unified_mnist[:1000])
+    model.train(unified_mnist[:60000])
+
+    model.test(unified_mnist[60001:])

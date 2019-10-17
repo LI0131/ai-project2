@@ -34,16 +34,27 @@ class Model:
             layer.reset_error_matrix()
         
     def train(self, images):
+        logging.info(f'Beginning Training...')
         for epoch in range(NUM_EPOCHS):
-            logging.info(f'Start Epoch #{epoch}...')
-            self._reset_layer_values()
-            logging.info(f'Propagating Images Forward...')
+            logging.info(f'Starting Epoch #{epoch}...')
             for image in images:
                 self.input_layer.reset_image(image['image'])
                 self.softmax.set_expected_output(image['label'])
                 self._propagate_forward()
-            logging.info(f'Begin Backpropagation...')
-            self._propagate_backward()
+                self._propagate_backward()
+                self._reset_layer_values()
+
+    def test(self, images):
+        logging.info(f'Beginning Testing...')
+        num_correct = 0
+        for image in images:
+            self.input_layer.reset_image(image['image'])
+            self.softmax.set_expected_output(image['label'])
+            self._propagate_forward()
+            if self.softmax.get_classification() == int(image['label']):
+                num_correct += 1
+            self._reset_layer_values()
+        logging.info(f'Accuracy: {(num_correct/len(images)) * 100}%')
 
     def __call__(self, image):
         self.input_layer.reset_image(image)
