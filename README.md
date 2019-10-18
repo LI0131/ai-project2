@@ -1,5 +1,5 @@
 # ai-project2
-Feed Forward Neural Network for the MNIST dataset using MSE, Sigmoid Units, and Stochastic Gradient Descent
+Feed Forward Neural Network for the MNIST dataset using Sigmoid Units and Stochastic Gradient Descent
 
 ## Git Repository
 https://github.com/LI0131/ai-project2
@@ -49,5 +49,19 @@ The training process continues until each image in the training set has been use
 
 After the training process is fully completed -- all images have been iterated over -- the testing process can begin. This process is similar to the training process, however, in this case we keep a counter for the number of correctly associated images and labels and we only need complete forward propagation. The testing set is composed of 1/7 of the total datapoints. Like in the training set, the set of images passed to the `test()` method are iterated over one by one. After each weight matrix is iterated through in the `_propagate_forward()` method, the model calls the OutputLayer method `get_classification()`. This method takes the array of node values and determines which index has the maximum value. Given the correlated between the digits and the indices of the output array of node values, we can simply return the index of the array with the maximum value. The value given by the `get_classification()` method is compared against the label for the current image. If the two values are equivalent, we increment the counter for the number of correct associations. After all the images in the set are iterated over, we return the percentage of correct associations given by `num_correct/len(images) * 100`.
 
+## Stochastic Gradient Descent
+The stochastic gradient descent method takes the value of each node in order to perform the batch gradient descent algorithm (i.e. we are performing batch gradient descent with a batch size of 1). By using the derived error value for each node in the network to compute the gradient we introduce "stochasticness" into our network. This introduces noise which can allow the network to peusdo-randomly jump through the error function. This allows the network to potentially "jump" over local minima in the error function in hopes of approximating the global minimum of the error function.
+
+We implement the gradient calculation in the following form: `(error for node_{i,j}) * (derivative of sigmoid function for sigmoid(dot product inlayer_{i,j} and weights_{i,j}))`. We take the derivative of the sigmoid function (found using the chain rule) because we need to essentially reverse the usage of the sigmoid activation function in determining the output. Therefore, we can reduce the complexity of this equation to simply: `(error for node_{i,j})(output nodes * (1 - output nodes))`. We can then multiply the determined gradient by the learning rate, which is a tuned hyperparameter, to find the degree at which the weights need to be scaled. Finally this scaled gradient is subtracted from the original weights in a pairwise fashion (index by index) and assigned as the new weight values for `self.weight_matrix`.
+
+## Sigmoid Function
+The sigmoid function bounds the input value within the range of zero and one based on the function 1/(1+e^(-x)). This is useful as it keeps the values of the data within a reasonable range. Without the use of the sigmoid function values can become too large or too small and overwhelm the network, such that one weight becomes too influental upon the classification of a data point.
+
+## Image Normalization
+In this model we normalized the pixel values in the images between the values of 0.01 and 0.99. This was done by dividing by the largest possible pixel value 255 and if the value was equal to 1 we set the value to be 0.99 or if the value was equal to 0 we set the value to 0.01. We did this in order to avoid the vanishing gradient problem. If the pixel values are too large, the value given for the pixel using the sigmoid will be very close to one. 
+
+## GIMP Image Testing
 
 
+## __len__() method -- Why is it included?
+I will admit that using abstract classes and complex class structures is _not_ the most efficient choice for computationally intensive operations. So, instead of creating an abstract weight matrix class for each type of weight matrix found in the model, I have included a `__len__()` function in each of my Layer classes. This function returns the correct length for each layer -- even if the `self.nodes` class variable is still equal `[]`. This allows me to skip the process of either creating abstract classes for each weight matrix or initializing weight matrices on the fly (i.e. after the initialization of the layers it is designed to relate).
