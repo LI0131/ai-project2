@@ -23,7 +23,7 @@ There are two options for running this network:
 2. `pip3 install pipenv` `pipenv install` `pipenv run app`
 
 ## Implementation
-My implementation of a Feed Forward Neural Network is given in the `/model` package within the main directory of this project. I chose to create the model as a stand alone package for two reasons: 1. It is highly reusable and adaptable to other projects 2. It allows for quick adaptations witin model class to expand the number of hidden layers. 
+My implementation of a Feed Forward Neural Network is given in the `/model` package within the main directory of this project. I chose to create the model as a stand alone package for two reasons: 1. It is highly reusable and adaptable to other projects 2. It allows for quick adaptations witin model class to expand the number of hidden layers. I was able to achieve 96% accuracy with this implementation.
 
 ### Class Structure
 Each layer is built against the abstract class `Layer` in the `layer.py` file. The abstract class defines the key get and set function for the model and defines the class variables that each layer will need -- that is a list of nodes and an error matrix. The input layer requires additional methods for the inserting and reseting images as the values of the input nodes. The output layer require more specialized methods for computing the error matrix after the full pass of the front propagation algorithm. The hidden layer, however, is fairly consistent with the methods defined in the abstract class. 
@@ -61,7 +61,7 @@ The sigmoid function bounds the input value within the range of zero and one bas
 In this model we normalized the pixel values in the images between the values of 0.01 and 0.99. This was done by dividing by the largest possible pixel value 255 and if the value was equal to 1 we set the value to be 0.99 or if the value was equal to 0 we set the value to 0.01. We did this in order to avoid the vanishing gradient problem. If the pixel values are too large, the value given for the pixel using the sigmoid will be very close to one. 
 
 ## GIMP Image Testing
-
+My model was only able to detect 1 out of the 10 files correctly when I fed it images that I had created in GIMP. I think the main reason for this is the way that I created the images. The lines on my images were quite rigid, and so the image only had pixel values of 1 or 0 (1 being black and 0 being white). This could have potentially thrown off my model since the pixel values that were used in the MNIST set ranged much more broadly over the grayscale spectrum.
 
 ## __len__() method -- Why is it included?
 I will admit that using abstract classes and complex class structures is _not_ the most efficient choice for computationally intensive operations. So, instead of creating an abstract weight matrix class for each type of weight matrix found in the model, I have included a `__len__()` function in each of my Layer classes. This function returns the correct length for each layer -- even if the `self.nodes` class variable is still equal `[]`. This allows me to skip the process of either creating abstract classes for each weight matrix or initializing weight matrices on the fly (i.e. after the initialization of the layers it is designed to relate).
