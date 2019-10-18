@@ -3,7 +3,7 @@ import logging
 import numpy as np
 from config import LEARNING_RATE
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='test_data.log', level=logging.DEBUG)
 
 
 def normalize_pixel_value(pixel):

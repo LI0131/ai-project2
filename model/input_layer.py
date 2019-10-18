@@ -5,7 +5,7 @@ from model.layer import Layer
 from config import IMAGE_SIZE
 from utils import normalize_pixel_value
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='test_data.log', level=logging.DEBUG)
 
 
 class InputLayer(Layer):

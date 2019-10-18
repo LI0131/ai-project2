@@ -5,7 +5,7 @@ from keras.datasets import mnist
 import matplotlib.image as mpimg
 from model import Model
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='test_data.log', level=logging.DEBUG)
 
 unified_mnist = []
 

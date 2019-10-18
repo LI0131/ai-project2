@@ -5,7 +5,7 @@ from model.hidden_layer import HiddenLayer
 from model.output_layer import OutputLayer
 from model.weight_matrix import WeightMatrix
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='test_data.log', level=logging.DEBUG)
 
 
 class Model:

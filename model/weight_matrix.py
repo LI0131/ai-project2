@@ -5,7 +5,7 @@ import logging
 import numpy as np
 from utils import *
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='test_data.log', level=logging.DEBUG)
 
 
 class WeightMatrix:

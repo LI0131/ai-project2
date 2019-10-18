@@ -7,7 +7,7 @@ from utils import error
 from model.layer import Layer
 from config import NUM_OUTPUT_NODES
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='test_data.log', level=logging.DEBUG)
 
 
 class OutputLayer(Layer):
