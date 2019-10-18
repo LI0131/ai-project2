@@ -28,7 +28,7 @@ class InputLayer(Layer):
     def reset_image(self, new_image):
         self.nodes = self._distribute_image(new_image)
 
-    def set_error(self, matrix):
+    def set_error_matrix(self, matrix):
         pass
 
     def __len__(self):

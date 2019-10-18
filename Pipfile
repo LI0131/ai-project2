@@ -12,6 +12,7 @@ app = 'python3 app.py'
 keras = "*"
 tensorflow = "*"
 logging = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.7"

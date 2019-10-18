@@ -2,6 +2,7 @@ import os
 import keras
 import logging
 from keras.datasets import mnist
+import matplotlib.image as mpimg
 from model import Model
 
 logging.basicConfig(level=logging.INFO)
@@ -40,3 +41,23 @@ if __name__ == '__main__':
     model.train(unified_mnist[:60000])
 
     model.test(unified_mnist[60001:])
+
+    logging.info(f'Creating gimp image set...')
+    gimp_set = []
+    for image in ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']:
+        gimp_set.append(
+            [[1 - val for val in row] for row in mpimg.imread(f'images/{image}.png')]
+        )
+
+    classifications = []
+    for image in gimp_set:
+        classifications.append(model(image))
+
+    logging.info(f'Gimp image classifications: {classifications}')
+
+    num_correct = 0
+    for index, num in zip(range(10), classifications):
+        if index == num:
+            num_correct += 1
+
+    logging.info(f'Correctly Indentified {num_correct/len(classifications) * 100}% of Gimp Images')

@@ -53,6 +53,9 @@ class Model:
             self._propagate_forward()
             if self.softmax.get_classification() == int(image['label']):
                 num_correct += 1
+                logging.info(f'Correct')
+            else:
+                logging.info(f'Incorrect:{self.softmax.get_node_array()}')
             self._reset_layer_values()
         logging.info(f'Accuracy: {(num_correct/len(images)) * 100}%')
 

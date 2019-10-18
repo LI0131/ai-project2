@@ -35,7 +35,7 @@ class WeightMatrix:
         error_matrix = self.outlayer.error_matrix
 
         # compute hidden error
-        self.inlayer.set_error(
+        self.inlayer.set_error_matrix(
             np.dot(error_matrix, self.weights.T)
         )
 

@@ -9,8 +9,5 @@ class HiddenLayer(Layer):
         self.nodes = []
         self.error_matrix = []
 
-    def set_error(self, matrix):
-        self.error_matrix = matrix
-
     def __len__(self):
         return NUM_HIDDEN_NODES

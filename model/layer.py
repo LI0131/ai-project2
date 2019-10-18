@@ -14,6 +14,9 @@ class Layer(object, metaclass=ABCMeta):
     def reset_node_values(self):
         self.nodes = []
 
+    def set_error_matrix(self, matrix):
+        self.error_matrix = matrix
+
     def reset_error_matrix(self):
         self.error_matrix = []
             
